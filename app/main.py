@@ -147,3 +147,7 @@ def start_new():
         "random_chord": transformed_chord,
         "degree": degree
     }
+
+@app.get("/")
+def home():
+    return {"Health check": "OK"}
