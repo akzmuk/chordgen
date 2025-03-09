@@ -2,13 +2,13 @@
 
 API for a generative, Transformer based model, that creates chord progressions.
 
-## How to use it locally.
+## How to use it locally
 
-1. Clone this repository: `git clone https://github.com/akzmuk/chordgen.git`.
-2. Go the the cloned repo directory.
-3. Build the Docker Image (It may take a while): `docker build -t chordgen .`.
-4. Start the Docker Container: `docker run -d --name chordgen_ -p 80:80 chordgen`.
-5. Check the API docs: http://127.0.0.1/docs.
+1. Clone this repository: `git clone https://github.com/akzmuk/chordgen.git`
+2. Go the the cloned repo directory
+3. Build the Docker Image (It may take a while): `docker build -t chordgen .`
+4. Start the Docker Container: `docker run -d --name chordgen_ -p 80:80 chordgen`
+5. Check the API docs: http://127.0.0.1/docs
 
 Notice! All availible chords can be found in ./app/chord_vocab.txt, use them to define your seed.
 
