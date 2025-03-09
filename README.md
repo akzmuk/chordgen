@@ -1,6 +1,6 @@
 # chordgen
 
-API for a generative, Transformer based model, that creates chord progressions.
+[API](https://chordgen-uxfa.onrender.com/docs) for a generative, Transformer based model, that creates chord progressions.
 
 ## Functional endpoints
 
