@@ -11,6 +11,7 @@ class GenerateWithSeedRequest(BaseModel):
     seed_progression: str
     num_chords: int = 4
     temperature: float = 1.0
+    glue_chords: bool = False
 
 class GenerateWithoutSeedRequest(BaseModel):
     num_chords: int = 4
@@ -56,7 +57,8 @@ def generate_with_seed(request: GenerateWithSeedRequest):
     Args:\n
         seed_progression (str): The seed progression (space-separated chord signatures).\n
         num_chords (int): The number of chords to generate.\n
-        temperature (float): The sampling temperature for the generation (higher = more random, lower = more deterministic).
+        temperature (float): The sampling temperature for the generation (higher = more random, lower = more deterministic).\n
+        glue_chords (bool): Whether to include the seed progression in the result (True) or return only the generated chords (False).\n
 
     Returns:\n
         dict: The seed + generated chord progression and its degrees (a binary 12-semitone list representation for each chord, commencing with the note C).
@@ -78,6 +80,10 @@ def generate_with_seed(request: GenerateWithSeedRequest):
         temperature=request.temperature,
         device=device
     )
+    
+    # If glue_chords is False, remove the seed progression from the result
+    if not request.glue_chords:
+        generated_progression = generated_progression[len(seed_progression):]
     
     # Transform chords to remove slash chords
     transformed_progression = [transform_chord(chord) for chord in generated_progression]
@@ -104,6 +110,10 @@ def generate_without_seed(request: GenerateWithoutSeedRequest):
     
     # Select a random chord from the vocabulary
     random_seed_chord = random.choice(list(vocab.chord_to_idx.keys()))
+
+    # Ensure we don't select special tokens
+    while random_seed_chord in ['<UNK>', '<PAD>']:
+        random_seed_chord = random.choice(list(vocab.chord_to_idx.keys()))
     
     # Generate chord progression
     generated_progression = generate_chord_progression(
@@ -136,16 +146,20 @@ def start_new():
     
     # Select a random chord from the vocabulary
     random_chord = random.choice(list(vocab.chord_to_idx.keys()))
+
+    # Ensure we don't select special tokens
+    while random_chord in ['<UNK>', '<PAD>']:
+        random_chord = random.choice(list(vocab.chord_to_idx.keys()))
     
     # Transform the random chord to remove slash chords
     transformed_chord = transform_chord(random_chord)
     
     # Get the degree for the transformed random chord
-    degree = chord_to_degree.get(transformed_chord, "Unknown")
+    degrees = chord_to_degree.get(transformed_chord, "Unknown")
     
     return {
-        "random_chord": transformed_chord,
-        "degree": degree
+        "chord": transformed_chord,
+        "degrees": degrees
     }
 
 @app.get("/")
