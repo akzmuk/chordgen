@@ -18,8 +18,15 @@ You can use it either as an inference script or an API.
 4. Start the Docker Container: `docker run -d --name chordgen_ -p 80:80 chordgen`
 5. Check the API docs: http://127.0.0.1/docs
 
-## Reference
+## Acknowledgements
 
 The model was trained on [this data](https://huggingface.co/datasets/ailsntua/Chordonomicon). Huge appreciation to the authors:
 
-Kantarelis, S., Thomas, K., Lyberatos, V., Dervakos, E., & Stamou, G. (2024). CHORDONOMICON: A dataset of 666,000 songs and their chord progressions. arXiv preprint arXiv:2410.22046. https://arxiv.org/abs/2410.22046
+```
+@article{kantarelis2024chordonomicon,
+title={CHORDONOMICON: A Dataset of 666,000 Songs and their Chord Progressions},
+author={Kantarelis, Spyridon and Thomas, Konstantinos and Lyberatos, Vassilis and Dervakos, Edmund and Stamou, Giorgos},
+journal={arXiv preprint arXiv:2410.22046},
+year={2024}
+}
+```
