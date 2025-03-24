@@ -2,6 +2,8 @@
 
 [API](https://chordgen-uxfa.onrender.com/docs) for a generative, transformer based model, to create chord progressions.
 
+An actual implementation of API see [here](https://github.com/akzmuk/genbient) 
+
 ## Functional endpoints
 
 - `/start_new/`: returns a random chord from model's vocabulary. Can be used as an adjective for a chord progression.
